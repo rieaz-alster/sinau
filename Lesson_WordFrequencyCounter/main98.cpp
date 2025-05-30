@@ -13,7 +13,6 @@ int main()
     map<string, int> result;
 
     size_t pos = string::npos;
-    size_t textLen = text.length();
 
     do
     {
@@ -21,7 +20,7 @@ int main()
         pos = text.find(' ');
         string substr = text.substr(0, pos);
 
-        /*Search if substring is exist withing map*/
+        /*Search if substring is exist within map*/
         map<string, int>::iterator it = result.find(substr); 
         if(it == result.end())
         {
@@ -34,14 +33,13 @@ int main()
             it->second++;
         }
 
-        text = text.substr(pos+1, textLen);
-        textLen = text.length();
+        text = text.substr(pos+1);
     }
     while(pos != string::npos);
 
+    /*Print result*/
     for(map<string, int>::iterator it = result.begin(); it != result.end(); it++)
     {
-        /*Print result*/
         cout << it->first << ": " << it->second << endl;
     }
     
