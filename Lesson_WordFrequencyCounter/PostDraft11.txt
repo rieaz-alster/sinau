@@ -1,0 +1,47 @@
+Before, we tried to solve Word Frequency Counter with restriction that we can only use C++98.
+
+Here's the link to the post:
+
+https://www.linkedin.com/posts/ahmad-fahriza-5ab105234_cpp98-cplusplus-moderncpp-activity-7333366074156961796-Xeuq?utm_source=share&utm_medium=member_desktop&rcm=ACoAADpkcRMB2QjAeKJk3Wr40UhAc98MgskQbgM
+
+
+One of the strengths of working in the C++98 mindset is that you have greater control over what’s happening. Because everything is explicit — a float is a float, an int is an int — there's very little ambiguity. This can be especially valuable when working on complex projects where the solution unfolds slowly and you need to translate each step from thought to code.
+
+In fact, during one particularly long and difficult project, this kind of piece-by-piece thinking became helpful to me.
+
+
+Now, let’s look at how we can take the same Word Frequency Counter and make it clearer, more compact, and more expressive, without sacrificing control or reliability:
+
+
+1. Change std::map to std::unordered_map
+
+We can change result type from std::map to std::unordered_map.
+Because there is no need for key ordering and result is just simple map, std::unordered_map offer better performance than std::map.
+
+
+Code:
+
+unordered_map<string, int> result;
+
+
+2. Use auto for type definition
+Since some of the variables type can be defined from their initialization, we can use auto.
+
+Code:
+
+auto pos = string::npos;
+...
+auto substr = text.substr(0, pos);
+auto it = result.find(substr);   
+
+3. Use emplace instead of insert
+Emplace is more convenient than insert, since we don't need to create new pair. With emplace, we only need to pass the elements as parameters.
+
+Code:
+result.emplace(substr, 1); 
+
+4. Range-based for
+Since C++11
+
+
+5. Structural binding

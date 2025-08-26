@@ -1,0 +1,65 @@
+Let solve one of a problem from leetcode: 𝗠𝗲𝗱𝗶𝗮𝗻 𝗼𝗳 𝗧𝘄𝗼 𝗦𝗼𝗿𝘁𝗲𝗱 𝗔𝗿𝗿𝗮𝘆𝘀 
+(https://leetcode.com/problems/median-of-two-sorted-arrays/)
+
+In summary, given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+
+There are many ways to solve this problem; brute force is often the easiest to understand and a solid starting point for beginners.
+Here, I’ll walk through the solution in desktop C++ syntax, followed by an adaptation for embedded environments.
+
+𝟭. 𝗖𝗼𝗺𝗯𝗶𝗻𝗶𝗻𝗴 𝗔𝗿𝗿𝗮𝘆𝘀
+On desktop, since std::vector is used, this can be done by calling vector::push_back(), like so:
+
+for(int n : nums1) combined.push_back(n);
+for(int n : nums2) combined.push_back(n);
+
+In embedded environments, std::vector is often discouraged, so we’ll use a plain int array and manually merge the inputs:
+
+for(int i = 0; i < m; i++)
+    combined[comLen++] = nums1[i];
+for(int i = 0; i < n; i++)
+    combined[comLen++] = nums2[i];
+
+𝟮. 𝗦𝗼𝗿𝘁𝗶𝗻𝗴 𝗔𝗿𝗿𝗮𝘆
+Once we have the combined array, we need to ensure it’s sorted.
+On desktop, we can simply use std::sort():
+
+std::sort(combined.begin(), combined.end());
+
+For embedded environments, we’ll implement an insertion sort instead:
+
+insertionSort(combined,m + n);
+void insertionSort(int* arr, size_t arrLen)
+{
+    for(int i = 0; i < arrLen; i++)
+    {
+        auto key = arr[i];
+        auto j = i;
+        while(j > 0 && arr[j-1] > key)
+        {
+            arr[j] = arr[j-1];
+            j--;
+        }
+        arr[j] = key;
+    }
+}
+
+𝟯. 𝗠𝗲𝗱𝗶𝗮𝗻 𝗼𝗳 𝗔𝗿𝗿𝗮𝘆
+After that we simply search for median of the combined array:
+
+auto size = m+n;
+if (size % 2 == 0)
+{
+    return (combined[size / 2 - 1] + combined[size / 2]) / 2.0;
+}
+else
+{
+    return combined[size / 2];
+}
+
+Full code for this solution can be found on: https://github.com/rieaz-alster/sinau/tree/main/Lesson_MedianOfTwoSortedArrays
+
+In short, desktop C++ favors convenience with STL, while embedded C++ trades that for tighter control and manual implementation.
+Of course, this problem can be solved in many other ways, from optimal O(log n) algorithms to hybrid approaches.
+How would you tackle the “median of two sorted arrays” problem?
+
+#cplusplus #embedded #programming #algorithms #LeetCode #datastructures #softwareengineering #codeoptimization #embeddeddevelopment #coding
