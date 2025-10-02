@@ -1,4 +1,4 @@
-##Solution for Longest Palindrome Substring.
+## Solution for Longest Palindrome Substring.
 (https://leetcode.com/problems/longest-palindromic-substring/)
 Description and problem's link specified in Problem.md
 
